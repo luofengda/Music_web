@@ -1,11 +1,16 @@
 <template>
   <div id="app">
-    <h1>初始化项目</h1>
+    <MHeader></MHeader>
   </div>
 </template>
 
 <script type="text/ecmascript-6">
-
+import MHeader from './components/m-header/m-header'
+export default {
+  components: {
+    MHeader
+  }
+}
 </script>
 
 <style scoped lang="stylus" rel="stylesheet/stylus">

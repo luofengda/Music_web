@@ -25,7 +25,8 @@ module.exports = {
       vue$: "vue/dist/vue.esm.js",
       // 配置别名，使得main.js配置
       'src': resolve("src"),
-      'common': resolve("src/common")
+      'common': resolve("src/common"),
+      'components':resolve('src/components')
     }
   },
   module: {
