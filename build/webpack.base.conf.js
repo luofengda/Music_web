@@ -26,7 +26,8 @@ module.exports = {
       // 配置别名，使得main.js配置
       'src': resolve("src"),
       'common': resolve("src/common"),
-      'components':resolve('src/components')
+      'components':resolve('src/components'),
+      'api':resolve('src/api')
     }
   },
   module: {
