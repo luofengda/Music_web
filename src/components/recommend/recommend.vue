@@ -1,6 +1,6 @@
 <template>
   <div class="recommend">
-    <Scroll class="recommend-content" :data="discList">
+    <Scroll ref="scroll" class="recommend-content" :data="discList">
       <div>
         <div v-if="recommends.length" class="slider-wrapper" ref="sliderWrapper">
           <slider>
@@ -16,7 +16,7 @@
           <ul>
             <li v-for="item in discList" class="item">
               <div class="icon">
-                <img :src="item.imgurl" alt="" width="60" height="60">
+                <img @click="loadImage" :src="item.imgurl" alt="" width="60" height="60">
               </div>
               <div class="text">
                 <h2 class="name" v-html="item.creator.name">
@@ -69,6 +69,14 @@ export default {
           // console.log(res.data.list);
         }
       })
+    },
+    // 图片加载完成之后可以滚动
+    loadImage(){
+      if (!this.checkLoaded) {
+         this.$refs.scroll.refresh()
+         this.checkLoaded=true
+      }
+     
     }
   },
   components: {
