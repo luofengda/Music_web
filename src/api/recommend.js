@@ -1,6 +1,6 @@
 import jsonp from "common/js/jsonp";
 import { commParams, options } from "./config";
-import axios from 'axios'
+import axios from "axios";
 
 // 获取轮播图的数据
 export function getRecommend() {
@@ -26,11 +26,14 @@ export function getDiscList() {
     categoryId: 10000000,
     sortId: 5,
     sin: 0,
-    ein: 29
+    ein: 29,
+    format: "json"
   });
- return axios.get(url,{
-   param:data
- }).then((res)=>{
-    return Promise.resolve(res.data)
- })
+  return axios
+    .get(url, {
+      params: data
+    })
+    .then(res => {
+      return Promise.resolve(res.data);
+    });
 }

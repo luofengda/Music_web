@@ -38,7 +38,7 @@ apiRoutes.get('/getDiscList',function(req,res){
     },
     params:req.query
   }).then((response)=>{
-    response.json(res.data)
+    res.json(response.data)
   }).catch((error)=>{
     console.log(error)
   })

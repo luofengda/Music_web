@@ -1,62 +1,80 @@
 <template>
-    <div class="recommend">
-        <div class="recommend-content">
-            <div v-if="recommends.length" class="slider-wrapper" ref="sliderWrapper">
-                <slider>
-                    <div v-for="item in recommends">
-                        <a :href="item.linkUrl">
-                            <img :src="item.picUrl" alt="">
-                        </a>
-                    </div>
-                </slider>
+  <div class="recommend">
+    <Scroll class="recommend-content" :data="discList">
+      <div>
+        <div v-if="recommends.length" class="slider-wrapper" ref="sliderWrapper">
+          <slider>
+            <div v-for="item in recommends">
+              <a :href="item.linkUrl">
+                <img :src="item.picUrl" alt="">
+              </a>
             </div>
-            <div class="recommend-list">
-                <h1 class="list-title">热门歌单推荐</h1>
-                <ul>
-                </ul>
-            </div>
+          </slider>
         </div>
-        <!-- <div class="loading-container" v-show="!discList.length">
-                    <loading></loading>
-                  </div> -->
-        <!-- <router-view></router-view> -->
-    </div>
+        <div class="recommend-list">
+          <h1 class="list-title">热门歌单推荐</h1>
+          <ul>
+            <li v-for="item in discList" class="item">
+              <div class="icon">
+                <img :src="item.imgurl" alt="" width="60" height="60">
+              </div>
+              <div class="text">
+                <h2 class="name" v-html="item.creator.name">
+                </h2>
+                <p class="desc" v-html="item.dissname"></p>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </Scroll>
+    <!-- <div class="loading-container" v-show="!discList.length">
+                          <loading></loading>
+                        </div> -->
+    <!-- <router-view></router-view> -->
+  </div>
 </template>
 
 <script type="text/ecmascript-6">
 import Slider from 'base/slider'
 import { getRecommend, getDiscList } from 'api/recommend'
 import { ERR_OK } from 'api/config'
+import Scroll from 'base/scroll'
 export default {
-    data() {
-        return {
-            recommends: []
-        }
-    },
-    created() {
-        this._getRecommend()
-        this._getDiscList()
-    },
-
-    methods: {
-        _getRecommend() {
-            getRecommend().then((res) => {
-                if (res.code === ERR_OK) {
-                    this.recommends = res.data.slider;
-                }
-            })
-        },
-        _getDiscList() {
-            getDiscList().then((res)=>{
-                if(res.code=== ERR_OK){
-                    console.log(res.data.list);
-                }
-            })
-        }
-    },
-    components: {
-        Slider
+  data() {
+    return {
+      // 轮播图
+      recommends: [],
+      // 歌单列表
+      discList: []
     }
+  },
+  created() {
+    this._getRecommend()
+    this._getDiscList()
+  },
+
+  methods: {
+    _getRecommend() {
+      getRecommend().then((res) => {
+        if (res.code === ERR_OK) {
+          this.recommends = res.data.slider;
+        }
+      })
+    },
+    _getDiscList() {
+      getDiscList().then((res) => {
+        if (res.code === ERR_OK) {
+          this.discList = res.data.list
+          // console.log(res.data.list);
+        }
+      })
+    }
+  },
+  components: {
+    Slider,
+    Scroll
+  }
 }
 </script>
 
